@@ -1,7 +1,8 @@
 import {PaymentService} from './payment.service';
 import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {IPayment} from '../declarations/payment.interface';
+import IPayment from '../declarations/payment.interface';
+
 
 
 
@@ -26,8 +27,8 @@ describe('PaymentService Test: ', () => {
 
     it('Should retrieve payments: API', () => {
         const testPayments: IPayment[] = [
-            {name: 'name1', daycost: 10, assign: [true, false]},
-            {name: 'name2', daycost: 2, assign: [false, false]}
+            {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)},
+            {id: 2, name: 'name2', daycost: 2, assign: new Map<number, boolean>().set(10, true)}
         ];
 
         service.getPayments().subscribe(payments => {
@@ -43,7 +44,7 @@ describe('PaymentService Test: ', () => {
     });
 
     it('Should create new payment: API', () => {
-        const testPayment: IPayment = {name: 'name1', daycost: 10, assign: [true, false]};
+        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)};
 
         service.createPayment(testPayment).subscribe(payment => {
             expect(payment).toEqual(testPayment);
