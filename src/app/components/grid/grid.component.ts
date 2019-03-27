@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PaymentService} from '../../services/payment.service';
 
 @Component({
   selector: 'app-grid',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GridComponent implements OnInit {
 
-  constructor() { }
+  constructor(private paymentService: PaymentService) {}
 
   ngOnInit() {
+    this.paymentService.getPayments().subscribe((RESULTS) => {
+      debugger;
+    });
   }
 
 }

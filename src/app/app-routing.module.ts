@@ -3,8 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {GridComponent} from './components/grid/grid.component';
 
 const routes: Routes = [
-  {path: 'grid', component: GridComponent},
   {path: '', redirectTo: '/grid', pathMatch: 'full'},
+  {path: 'grid', component: GridComponent},
   {path: '**', redirectTo: '/grid', pathMatch: 'full'}
 ];
 
