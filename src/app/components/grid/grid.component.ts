@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {getDaysInMonth} from 'src/app/helpers/date.helper';
 import IPayment from '../../declarations/payment.interface';
 
@@ -12,7 +13,12 @@ export class GridComponent implements OnInit {
   payments: IPayment[] = [];
   assignInitial: Map<number, boolean> = new Map<number, boolean>();
 
-  constructor() {}
+  public operationForm = this.fb.group({
+    paymentName: ['', Validators.required],
+    paymentDayCost: ['', [Validators.required, Validators.min(0)]]
+  });
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     for (let idx = 0; idx < this.months.length; idx++) {
@@ -20,13 +26,24 @@ export class GridComponent implements OnInit {
     }
   }
 
+  get paymentName(): AbstractControl {
+    return this.operationForm.get('paymentName');
+  }
+
+  get paymentDayCost(): AbstractControl {
+    return this.operationForm.get('paymentDayCost');
+  }
+
   addPayment(): void {
-    this.payments.push({
-      id: 1,
-      name: 'Roga i Kopyta',
-      daycost: 1,
-      assign: new Map<number, boolean>(this.assignInitial)
-    });
+    if (this.operationForm.valid) {
+      this.payments.push({
+        id: 1,
+        name: this.paymentName.value,
+        daycost: this.paymentDayCost.value,
+        assign: new Map<number, boolean>(this.assignInitial)
+      });
+      this.operationForm.reset();
+    }
   }
 
   removePayment(idx: number): void {
@@ -35,7 +52,6 @@ export class GridComponent implements OnInit {
 
   setAssignment(payment: IPayment, key: number, event: any): void {
     payment.assign.set(key, event.target.checked);
-    console.log(getDaysInMonth(key));
   }
 
   getAmount(): number {
@@ -48,9 +64,5 @@ export class GridComponent implements OnInit {
       });
     });
     return amount;
-  }
-
-  show() {
-    console.log(this.payments[0].assign);
   }
 }

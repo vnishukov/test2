@@ -1,5 +1,6 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {AppRoutingModule} from './app-routing.module';
@@ -14,11 +15,11 @@ import {PaymentService} from './services/payment.service';
     BrowserModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemPaymentService, {delay: 500}),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [
-    PaymentService
-  ],
+  providers: [PaymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

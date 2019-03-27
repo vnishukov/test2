@@ -1,11 +1,7 @@
-import {PaymentService} from './payment.service';
-import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {TestBed} from '@angular/core/testing';
 import IPayment from '../declarations/payment.interface';
-
-
-
-
+import {PaymentService} from './payment.service';
 
 describe('PaymentService Test: ', () => {
     let service: PaymentService;
@@ -31,7 +27,7 @@ describe('PaymentService Test: ', () => {
             {id: 2, name: 'name2', daycost: 2, assign: new Map<number, boolean>().set(10, true)}
         ];
 
-        service.getPayments().subscribe(payments => {
+        service.getPayments().subscribe((payments) => {
             expect(payments.length).toBe(2);
             expect(payments).toEqual(testPayments);
         });
@@ -46,7 +42,7 @@ describe('PaymentService Test: ', () => {
     it('Should create new payment: API', () => {
         const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)};
 
-        service.createPayment(testPayment).subscribe(payment => {
+        service.createPayment(testPayment).subscribe((payment) => {
             expect(payment).toEqual(testPayment);
         });
 
