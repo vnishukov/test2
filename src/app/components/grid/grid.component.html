@@ -9,10 +9,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let payment of payments">
+    <tr *ngFor="let payment of payments; let idx = index">
       <td>{{ payment.name }}</td>
       <td>{{ payment.daycost }}</td>
-      <td *ngFor="let assign of payment.assign">{{ assign }}</td>
+      <td *ngFor="let assign of (payment.assign | keyvalue)">
+        <input type="checkbox" [checked]="assign.value" (change)="setAssignment(payment, assign.key, $event)" />
+      </td>
+      <td><span (click)="removePayment(idx)">x</span></td>
     </tr>
   </tbody>
   <tfoot>
@@ -21,3 +24,4 @@
     </tr>
   </tfoot>
 </table>
+<button type="submit" (click)="show()">SHOW</button>

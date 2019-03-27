@@ -7,14 +7,16 @@ import IPayment from 'src/app/declarations/payment.interface';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit {
-  months: string[];
-  payments: IPayment[];
+  months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  payments: IPayment[] = [];
+  assignInitial: Map<number, boolean> = new Map<number, boolean>();
 
   constructor() {}
 
   ngOnInit() {
-    this.months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
-    this.payments = [];
+    for (let idx = 0; idx < this.months.length; idx++) {
+      this.assignInitial.set(idx, false);
+    }
   }
 
   addPayment(): void {
@@ -22,7 +24,20 @@ export class GridComponent implements OnInit {
       id: 1,
       name: 'Roga i Kopyta',
       daycost: 650,
-      assign: [false, false, false, false, false, false, false, false, false, false, false, false]
+      assign: new Map<number, boolean>(this.assignInitial)
     });
+  }
+
+  removePayment(idx: number): void {
+    this.payments.splice(idx, 1);
+  }
+
+  setAssignment(payment: IPayment, key: number, event: any): void {
+    payment.assign.set(key, event.target.checked);
+    console.log(payment.assign, key, event.target.checked);
+  }
+
+  show() {
+    console.log(this.payments[0].assign);
   }
 }
