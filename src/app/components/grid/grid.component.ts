@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {getDaysInMonth} from 'src/app/helpers/date.helper';
 import IPayment from '../../declarations/payment.interface';
+import {PaymentService} from '../../services/payment.service';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-grid',
@@ -18,9 +20,19 @@ export class GridComponent implements OnInit {
     paymentDayCost: ['', [Validators.required, Validators.min(0)]]
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private paymentService: PaymentService) {}
 
   ngOnInit() {
+
+    this.paymentService.getPayments().pipe(take(1)).subscribe(result => {
+      const assign = new Map<number, boolean>().set(10, true);
+      this.paymentService.createPayment({id: 12, name: 'Test', daycost: 200, assign}).pipe(take(1)).subscribe(result2 => {
+        this.paymentService.getPayments().pipe(take(1)).subscribe(result3 => {
+          console.log(result3);
+        });
+      });
+    });
+
     for (let idx = 0; idx < this.months.length; idx++) {
       this.assignInitial.set(idx, false);
     }
