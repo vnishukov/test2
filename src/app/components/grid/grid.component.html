@@ -27,18 +27,20 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let payment of payments; let idx = index">
-      <td>{{ payment.name }}</td>
-      <td>{{ payment.daycost }}</td>
-      <td *ngFor="let assign of (payment.assign | keyvalue)">
-        <input type="checkbox" [checked]="assign.value" (change)="setAssignment(payment, assign.key, $event)" />
+    <tr *ngFor="let payment of payments; let pidx = index">
+      <td class="content-cell">{{ payment.name }}</td>
+      <td class="content-cell">{{ payment.daycost }}</td>
+      <td class="content-cell" *ngFor="let month of months; let midx = index">
+        <input type="checkbox" [checked]="payment.assign[midx]" (change)="setAssignment(payment, midx, $event)" />
       </td>
-      <td><span (click)="removePayment(idx)">x</span></td>
+      <td class="content-cell action-cell"><span (click)="removePayment(pidx)">x</span></td>
     </tr>
   </tbody>
   <tfoot *ngIf="getAmount()">
     <tr>
-      <td>Израсходовано средств: {{ getAmount() }}</td>
+      <td colspan="15">
+        Израсходовано средств: <span class="bold">{{ getAmount() }}</span>
+      </td>
     </tr>
   </tfoot>
 </table>
