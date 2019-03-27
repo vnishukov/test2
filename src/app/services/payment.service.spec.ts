@@ -57,4 +57,32 @@ describe('PaymentService Test: ', () => {
         request.flush(testPayment);
     });
 
+    it('Should update payment: API', () => {
+        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)};
+
+        service.updatePayment(testPayment).subscribe(payment => {
+            expect(payment).toEqual(testPayment);
+        });
+
+        const request = httpMock.expectOne(`api/payments/${testPayment.id}`);
+
+        expect(request.request.method).toBe('PUT');
+
+        request.flush(testPayment);
+    });
+
+    it('Should delete payment: API', () => {
+        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)};
+
+        service.deletePayment(testPayment.id).subscribe(payment => {
+            expect(payment).toEqual(testPayment);
+        });
+
+        const request = httpMock.expectOne(`api/payments/${testPayment.id}`);
+
+        expect(request.request.method).toBe('DELETE');
+
+        request.flush(testPayment);
+    });
+
 });
