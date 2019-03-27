@@ -1,3 +1,23 @@
-<p>
-  grid works!
-</p>
+<button type="submit" (click)="addPayment()">Добавить</button>
+<table>
+  <thead>
+    <tr>
+      <th>Наименование платежа</th>
+      <th>Стоимость</th>
+      <th *ngFor="let month of months">{{ month }}</th>
+      <th>Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let payment of payments">
+      <td>{{ payment.name }}</td>
+      <td>{{ payment.daycost }}</td>
+      <td *ngFor="let assign of payment.assign">{{ assign }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Израсходовано средств: {{ payments?.length }}</td>
+    </tr>
+  </tfoot>
+</table>
