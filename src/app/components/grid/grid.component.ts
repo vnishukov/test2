@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import IPayment from 'src/app/declarations/payment.interface';
+import {getDaysInMonth} from 'src/app/helpers/date.helper';
+import IPayment from '../../declarations/payment.interface';
 
 @Component({
   selector: 'app-grid',
@@ -23,7 +24,7 @@ export class GridComponent implements OnInit {
     this.payments.push({
       id: 1,
       name: 'Roga i Kopyta',
-      daycost: 650,
+      daycost: 1,
       assign: new Map<number, boolean>(this.assignInitial)
     });
   }
@@ -34,7 +35,19 @@ export class GridComponent implements OnInit {
 
   setAssignment(payment: IPayment, key: number, event: any): void {
     payment.assign.set(key, event.target.checked);
-    console.log(payment.assign, key, event.target.checked);
+    console.log(getDaysInMonth(key));
+  }
+
+  getAmount(): number {
+    let amount = 0;
+    this.payments.forEach((payment) => {
+      payment.assign.forEach((value: boolean, key: number) => {
+        if (value) {
+          amount += payment.daycost * getDaysInMonth(key + 1);
+        }
+      });
+    });
+    return amount;
   }
 
   show() {
