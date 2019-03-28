@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {take} from 'rxjs/operators';
-import IPayment from 'src/app/declarations/payment.interface';
-import {months} from 'src/app/helpers/month.helper';
-import {PaymentService} from 'src/app/services/payment.service';
+import IPayment from '../../declarations/payment.interface';
+import {months} from '../../helpers/month.helper';
+import {PaymentService} from '../../services/payment.service';
 @Component({
   selector: 'app-payments-status-page',
   templateUrl: './payments-status-page.component.html',

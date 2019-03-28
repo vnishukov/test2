@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {GridComponent} from './components/grid/grid.component';
 import {PaymentsStatusPageComponent} from './pages/payments-status-page/payments-status-page.component';
 
 const routes: Routes = [

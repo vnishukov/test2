@@ -1,5 +1,4 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {PaymentsStatusPageComponent} from './payments-status-page.component';
 
 describe('PaymentsStatusPageComponent', () => {

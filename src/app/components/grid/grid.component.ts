@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {getDaysInMonth} from 'src/app/helpers/date.helper';
 import IPayment from '../../declarations/payment.interface';
+import {getDaysInMonth} from '../../helpers/date.helper';
 
 @Component({
   selector: 'app-grid',

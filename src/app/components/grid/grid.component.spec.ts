@@ -1,7 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
-import {GridComponent} from './grid.component';
 import {PaymentService} from '../../services/payment.service';
+import {GridComponent} from './grid.component';
 
 describe('GridComponent', () => {
   let component: GridComponent;
@@ -11,8 +10,7 @@ describe('GridComponent', () => {
     TestBed.configureTestingModule({
       declarations: [GridComponent],
       providers: [PaymentService]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
