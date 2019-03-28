@@ -7,10 +7,11 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {GridComponent} from './components/grid/grid.component';
 import {InMemPaymentService} from './mocks/payments.db';
+import {PaymentsStatusPageComponent} from './pages/payments-status-page/payments-status-page.component';
 import {PaymentService} from './services/payment.service';
 
 @NgModule({
-  declarations: [AppComponent, GridComponent],
+  declarations: [AppComponent, GridComponent, PaymentsStatusPageComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
