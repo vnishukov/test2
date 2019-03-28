@@ -1,12 +1,64 @@
 import {Component, OnInit} from '@angular/core';
-
+import {take} from 'rxjs/operators';
+import IPayment from 'src/app/declarations/payment.interface';
+import {months} from 'src/app/helpers/month.helper';
+import {PaymentService} from 'src/app/services/payment.service';
 @Component({
   selector: 'app-payments-status-page',
   templateUrl: './payments-status-page.component.html',
   styleUrls: ['./payments-status-page.component.scss']
 })
 export class PaymentsStatusPageComponent implements OnInit {
-  constructor() {}
+  nextId = 0;
 
-  ngOnInit() {}
+  payments: IPayment[] = [];
+  assignInitial: {[key: number]: boolean} = {};
+
+  constructor(private paymentService: PaymentService) {}
+
+  ngOnInit() {
+    for (let idx = 0; idx < months.length; idx++) {
+      this.assignInitial[idx] = false;
+    }
+    this.fetchPayments();
+  }
+
+  get months(): string[] {
+    return months;
+  }
+
+  addPayment(newPayment: IPayment): void {
+    this.paymentService
+      .createPayment({
+        id: this.nextId,
+        name: newPayment.name,
+        daycost: newPayment.daycost,
+        assign: {...this.assignInitial}
+      })
+      .pipe(take(1))
+      .subscribe(() => this.fetchPayments());
+  }
+
+  removePayment(payment: IPayment): void {
+    this.paymentService
+      .deletePayment(payment.id)
+      .pipe(take(1))
+      .subscribe(() => this.fetchPayments());
+  }
+
+  private fetchPayments(): void {
+    this.paymentService
+      .getPayments()
+      .pipe(take(1))
+      .subscribe((payments: IPayment[]) => {
+        this.setLastId(payments);
+        this.payments = payments;
+      });
+  }
+
+  private setLastId(payments: IPayment[]): void {
+    const sortedIds = payments.map((payment) => payment.id).sort((one, two) => (one > two ? 1 : 0));
+    const highestId = sortedIds[sortedIds.length - 1];
+    this.nextId = highestId + 1;
+  }
 }

@@ -1,0 +1,20 @@
+.operation-form-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  & > div:not(:last-of-type) {
+    margin-right: 40px;
+  }
+  .action-button-wrapper {
+    .action-btn {
+      border-radius: 0;
+    }
+  }
+  input {
+    width: 400px;
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #dee2e6;
+  }
+}

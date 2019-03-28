@@ -1,6 +1,6 @@
 export default interface IPayment {
-  id: number;
+  id?: number;
   name: string;
   daycost: number;
-  assign: {[key: number]: boolean};
+  assign?: {[key: number]: boolean};
 }
