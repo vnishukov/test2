@@ -3,6 +3,11 @@
     <app-form (submit)="addPayment($event)"></app-form>
   </div>
   <div class="row justify-content-center">
-    <app-grid [months]="months" [payments]="payments" (remove)="removePayment($event)"></app-grid>
+    <app-grid
+      [months]="months"
+      [payments]="payments"
+      (update)="updatePayment($event)"
+      (remove)="removePayment($event)"
+    ></app-grid>
   </div>
 </div>

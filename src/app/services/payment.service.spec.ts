@@ -4,81 +4,80 @@ import IPayment from '../declarations/payment.interface';
 import {PaymentService} from './payment.service';
 
 describe('PaymentService Test: ', () => {
-    let service: PaymentService;
-    let httpMock: HttpTestingController;
+  let service: PaymentService;
+  let httpMock: HttpTestingController;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [PaymentService]
-        });
-
-        service = TestBed.get(PaymentService);
-        httpMock = TestBed.get(HttpTestingController);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [PaymentService]
     });
 
-    afterEach(() => {
-        httpMock.verify();
+    service = TestBed.get(PaymentService);
+    httpMock = TestBed.get(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+  it('Should retrieve payments: API', () => {
+    const testPayments: IPayment[] = [
+      {id: 1, name: 'name1', daycost: 10, assign: {10: true}},
+      {id: 2, name: 'name2', daycost: 2, assign: {10: true}}
+    ];
+
+    service.getPayments().subscribe((payments) => {
+      expect(payments.length).toBe(2);
+      expect(payments).toEqual(testPayments);
     });
 
-    it('Should retrieve payments: API', () => {
-        const testPayments: IPayment[] = [
-            {id: 1, name: 'name1', daycost: 10, assign: {10: true}},
-            {id: 2, name: 'name2', daycost: 2, assign: {10: true}}
-        ];
+    const request = httpMock.expectOne('api/payments');
 
-        service.getPayments().subscribe((payments) => {
-            expect(payments.length).toBe(2);
-            expect(payments).toEqual(testPayments);
-        });
+    expect(request.request.method).toBe('GET');
 
-        const request = httpMock.expectOne('api/payments');
+    request.flush(testPayments);
+  });
 
-        expect(request.request.method).toBe('GET');
+  it('Should create new payment: API', () => {
+    const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
-        request.flush(testPayments);
+    service.createPayment(testPayment).subscribe((payment) => {
+      expect(payment).toEqual(testPayment);
     });
 
-    it('Should create new payment: API', () => {
-        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
+    const request = httpMock.expectOne('api/payments');
 
-        service.createPayment(testPayment).subscribe((payment) => {
-            expect(payment).toEqual(testPayment);
-        });
+    expect(request.request.method).toBe('POST');
 
-        const request = httpMock.expectOne('api/payments');
+    request.flush(testPayment);
+  });
 
-        expect(request.request.method).toBe('POST');
+  it('Should update payment: API', () => {
+    const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
-        request.flush(testPayment);
+    service.updatePayment(testPayment).subscribe((payment) => {
+      expect(payment).toEqual(testPayment);
     });
 
-    it('Should update payment: API', () => {
-        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
+    const request = httpMock.expectOne(`api/payments/${testPayment.id}`);
 
-        service.updatePayment(testPayment).subscribe(payment => {
-            expect(payment).toEqual(testPayment);
-        });
+    expect(request.request.method).toBe('PUT');
 
-        const request = httpMock.expectOne(`api/payments/${testPayment.id}`);
+    request.flush(testPayment);
+  });
 
-        expect(request.request.method).toBe('PUT');
+  it('Should delete payment: API', () => {
+    const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
-        request.flush(testPayment);
+    service.deletePayment(testPayment.id).subscribe((payment) => {
+      expect(payment).toEqual(testPayment);
     });
 
-    it('Should delete payment: API', () => {
-        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
+    const request = httpMock.expectOne(`api/payments/${testPayment.id}`);
 
-        service.deletePayment(testPayment.id).subscribe(payment => {
-            expect(payment).toEqual(testPayment);
-        });
+    expect(request.request.method).toBe('DELETE');
 
-        const request = httpMock.expectOne(`api/payments/${testPayment.id}`);
-
-        expect(request.request.method).toBe('DELETE');
-
-        request.flush(testPayment);
-    });
-
+    request.flush(testPayment);
+  });
 });

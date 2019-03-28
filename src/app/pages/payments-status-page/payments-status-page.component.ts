@@ -10,7 +10,6 @@ import {PaymentService} from '../../services/payment.service';
 })
 export class PaymentsStatusPageComponent implements OnInit {
   nextId = 0;
-
   payments: IPayment[] = [];
   assignInitial: {[key: number]: boolean} = {};
 
@@ -27,14 +26,21 @@ export class PaymentsStatusPageComponent implements OnInit {
     return months;
   }
 
-  addPayment(newPayment: IPayment): void {
+  addPayment(payment: IPayment): void {
     this.paymentService
       .createPayment({
         id: this.nextId,
-        name: newPayment.name,
-        daycost: newPayment.daycost,
+        name: payment.name,
+        daycost: payment.daycost,
         assign: {...this.assignInitial}
       })
+      .pipe(take(1))
+      .subscribe(() => this.fetchPayments());
+  }
+
+  updatePayment(payment: IPayment): void {
+    this.paymentService
+      .updatePayment(payment)
       .pipe(take(1))
       .subscribe(() => this.fetchPayments());
   }

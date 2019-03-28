@@ -15,9 +15,10 @@ export class GridComponent {
   months: string[] = [];
 
   @Output()
-  remove: EventEmitter<any> = new EventEmitter<any>();
+  update: EventEmitter<any> = new EventEmitter<any>();
 
-  assignInitial: {[key: number]: boolean} = {};
+  @Output()
+  remove: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
 
@@ -27,6 +28,7 @@ export class GridComponent {
 
   setAssignment(payment: IPayment, key: number, event: any): void {
     payment.assign[key] = event.target.checked;
+    this.update.emit(payment);
   }
 
   getAmount(): number {
