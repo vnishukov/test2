@@ -22,6 +22,12 @@ export class GridComponent implements OnInit {
   constructor(private fb: FormBuilder, private paymentService: PaymentService) {}
 
   ngOnInit() {
+    for (let idx = 0; idx < months.length; idx++) {
+      this.assignInitial[idx] = false;
+    }
+    this.paymentService.getPayments().subscribe((payments) => {
+      this.payments = payments;
+    });
     // this.paymentService
     //   .getPayments()
     //   .pipe(take(1))
@@ -39,15 +45,10 @@ export class GridComponent implements OnInit {
     //           });
     //       });
     //   });
+  }
 
-    for (let idx = 0; idx < months.length; idx++) {
-      this.assignInitial[idx] = false;
-    }
-
-    this.paymentService.getPayments().subscribe((payments) => {
-      console.log(payments);
-      this.payments = payments;
-    });
+  get months(): string[] {
+    return months;
   }
 
   get paymentName(): AbstractControl {
@@ -58,24 +59,30 @@ export class GridComponent implements OnInit {
     return this.operationForm.get('paymentDayCost');
   }
 
-  get months(): string[] {
-    return months;
-  }
-
   addPayment(): void {
     if (this.operationForm.valid) {
-      this.payments.push({
-        id: 1,
-        name: this.paymentName.value,
-        daycost: this.paymentDayCost.value,
-        assign: {...this.assignInitial}
-      });
+      this.paymentService
+        .createPayment({
+          id: 1,
+          name: this.paymentName.value,
+          daycost: this.paymentDayCost.value,
+          assign: {...this.assignInitial}
+        })
+        .subscribe(() => {
+          this.paymentService.getPayments().subscribe((payments) => {
+            this.payments = payments;
+          });
+        });
       this.operationForm.reset();
     }
   }
 
-  removePayment(idx: number): void {
-    this.payments.splice(idx, 1);
+  removePayment(payment: IPayment): void {
+    this.paymentService.deletePayment(payment.id).subscribe(() => {
+      this.paymentService.getPayments().subscribe((payments) => {
+        this.payments = payments;
+      });
+    });
   }
 
   setAssignment(payment: IPayment, key: number, event: any): void {

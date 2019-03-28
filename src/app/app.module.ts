@@ -15,7 +15,7 @@ import {PaymentService} from './services/payment.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemPaymentService, {delay: 500}),
+    HttpClientInMemoryWebApiModule.forRoot(InMemPaymentService, {delay: 100}),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule
