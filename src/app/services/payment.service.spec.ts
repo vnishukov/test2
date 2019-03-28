@@ -23,8 +23,8 @@ describe('PaymentService Test: ', () => {
 
     it('Should retrieve payments: API', () => {
         const testPayments: IPayment[] = [
-            {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)},
-            {id: 2, name: 'name2', daycost: 2, assign: new Map<number, boolean>().set(10, true)}
+            {id: 1, name: 'name1', daycost: 10, assign: {10: true}},
+            {id: 2, name: 'name2', daycost: 2, assign: {10: true}}
         ];
 
         service.getPayments().subscribe((payments) => {
@@ -40,7 +40,7 @@ describe('PaymentService Test: ', () => {
     });
 
     it('Should create new payment: API', () => {
-        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)};
+        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
         service.createPayment(testPayment).subscribe((payment) => {
             expect(payment).toEqual(testPayment);
@@ -54,7 +54,7 @@ describe('PaymentService Test: ', () => {
     });
 
     it('Should update payment: API', () => {
-        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)};
+        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
         service.updatePayment(testPayment).subscribe(payment => {
             expect(payment).toEqual(testPayment);
@@ -68,7 +68,7 @@ describe('PaymentService Test: ', () => {
     });
 
     it('Should delete payment: API', () => {
-        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: new Map<number, boolean>().set(10, true)};
+        const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
         service.deletePayment(testPayment.id).subscribe(payment => {
             expect(payment).toEqual(testPayment);
