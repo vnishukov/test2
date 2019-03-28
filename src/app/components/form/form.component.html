@@ -1,15 +1,19 @@
-<div class="operation-form-wrapper">
+<div class="operation-form-wrapper row">
   <div class="payment-name-wrapper">
     <input type="text" [formControl]="paymentName" placeholder="Наименование платежа*" />
-    <div *ngIf="paymentName.dirty">
-      <div *ngIf="paymentName.errors?.required">Поле обязательно</div>
+    <div class="error-message-wrapper">
+      <div class="error-message" *ngIf="paymentName.dirty">
+        <small class="text-danger" *ngIf="paymentName.errors?.required">Поле обязательно для заполнения</small>
+      </div>
     </div>
   </div>
   <div class="payment-daycost-wrapper">
     <input type="number" [formControl]="paymentDayCost" placeholder="Стоимость за день" />
-    <div *ngIf="paymentDayCost.dirty">
-      <div *ngIf="paymentDayCost.errors?.required">Поле обязательно</div>
-      <div *ngIf="paymentDayCost.errors?.min">Значение не может быть меньше 0</div>
+    <div class="error-message-wrapper">
+      <div class="error-message" *ngIf="paymentDayCost.dirty">
+        <small class="text-danger" *ngIf="paymentDayCost.errors?.required">Поле обязательно для заполнения</small>
+        <small class="text-danger" *ngIf="paymentDayCost.errors?.min">Значение не может быть меньше 0</small>
+      </div>
     </div>
   </div>
   <div class="action-button-wrapper">

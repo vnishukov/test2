@@ -15,7 +15,9 @@ table {
         }
         &.action-cell {
           cursor: pointer;
+          user-select: none;
           &:hover {
+            color: #ff0000;
             font-weight: bold;
           }
         }

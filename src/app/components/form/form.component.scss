@@ -1,8 +1,5 @@
 .operation-form-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 40px;
+  flex-wrap: nowrap;
   & > div:not(:last-of-type) {
     margin-right: 40px;
   }
@@ -10,6 +7,9 @@
     .action-btn {
       border-radius: 0;
     }
+  }
+  .error-message-wrapper {
+    height: 20px;
   }
   input {
     width: 400px;
