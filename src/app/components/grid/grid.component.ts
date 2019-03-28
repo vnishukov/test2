@@ -45,6 +45,7 @@ export class GridComponent implements OnInit {
     }
 
     this.paymentService.getPayments().subscribe((payments) => {
+      console.log(payments);
       this.payments = payments;
     });
   }
@@ -57,7 +58,7 @@ export class GridComponent implements OnInit {
     return this.operationForm.get('paymentDayCost');
   }
 
-  get month(): string[] {
+  get months(): string[] {
     return months;
   }
 

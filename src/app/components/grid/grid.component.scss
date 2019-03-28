@@ -6,14 +6,25 @@
 }
 
 table {
+  thead {
+    tr {
+      th {
+        text-align: center;
+      }
+    }
+  }
   tbody {
     tr {
       td {
         &.content-cell {
           text-align: center;
+          vertical-align: middle;
         }
         &.action-cell {
           cursor: pointer;
+          &:hover {
+            font-weight: bold;
+          }
         }
       }
     }
