@@ -1,5 +1,5 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormComponent} from './form.component';
 
 describe('FormComponent', () => {
@@ -25,6 +25,14 @@ describe('FormComponent', () => {
 
   it('should create a form', () => {
     expect(component.operationForm).toBeDefined();
+  });
+
+  it('should have FormControl for a `paymentName` form field', () => {
+    expect(component.paymentName).toEqual(jasmine.any(AbstractControl));
+  });
+
+  it('should have FormControl for a `paymentDayCost` form field', () => {
+    expect(component.paymentDayCost).toEqual(jasmine.any(AbstractControl));
   });
 
   it('should not submit the form if it`s not valid', () => {
