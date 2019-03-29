@@ -1,3 +1,4 @@
+import {EventEmitter} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormComponent} from './form.component';
@@ -25,6 +26,11 @@ describe('FormComponent', () => {
 
   it('should create a form', () => {
     expect(component.operationForm).toBeDefined();
+  });
+
+  it('should have an emitter to submit the form', () => {
+    expect(component.submit).toBeDefined();
+    expect(component.submit).toEqual(jasmine.any(EventEmitter));
   });
 
   it('should have FormControl for a `paymentName` form field', () => {
