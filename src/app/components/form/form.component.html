@@ -1,6 +1,6 @@
 <div class="operation-form-wrapper row">
   <div class="payment-name-wrapper">
-    <input type="text" [formControl]="paymentName" placeholder="Наименование платежа*" />
+    <input #pName type="text" [formControl]="paymentName" placeholder="Наименование платежа*" autofocus />
     <div class="error-message-wrapper">
       <div class="error-message" *ngIf="paymentName.dirty">
         <small class="text-danger" *ngIf="paymentName.errors?.required">Поле обязательно для заполнения</small>
@@ -17,7 +17,13 @@
     </div>
   </div>
   <div class="action-button-wrapper">
-    <button type="submit" class="action-btn btn btn-secondary" (click)="onSubmit()" [disabled]="operationForm.invalid">
+    <button
+      type="submit"
+      class="action-btn btn btn-secondary"
+      (click)="onSubmit()"
+      [disabled]="operationForm.invalid"
+      title="Для Вашего удобства используйте Enter для добавления платежа и Escape для обнуления формы"
+    >
       Добавить
     </button>
   </div>

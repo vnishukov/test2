@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
@@ -7,6 +7,9 @@ import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent {
+  @ViewChild('pName')
+  private pName: ElementRef;
+
   public operationForm = this.fb.group({
     paymentName: ['', Validators.required],
     paymentDayCost: ['', [Validators.required, Validators.min(0)]]
@@ -22,7 +25,7 @@ export class FormComponent {
         this.onSubmit();
         break;
       case 'Escape':
-        this.operationForm.reset();
+        this.resetForm();
         break;
       default:
         break;
@@ -42,7 +45,12 @@ export class FormComponent {
   onSubmit() {
     if (this.operationForm.valid) {
       this.submit.emit({name: this.paymentName.value, daycost: this.paymentDayCost.value});
-      this.operationForm.reset();
+      this.resetForm();
     }
+  }
+
+  private resetForm(): void {
+    this.operationForm.reset();
+    this.pName.nativeElement.focus();
   }
 }
