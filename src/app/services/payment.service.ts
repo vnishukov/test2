@@ -7,19 +7,19 @@ import IPayment from '../declarations/payment.interface';
 export class PaymentService {
   constructor(private httpClient: HttpClient) {}
 
-  createPayment(payment: IPayment): Observable<IPayment> {
-    return this.httpClient.post<IPayment>('api/payments', payment);
-  }
-
   getPayments(): Observable<IPayment[]> {
     return this.httpClient.get<IPayment[]>('api/payments');
   }
 
-  deletePayment(paymentId: number): Observable<IPayment> {
-    return this.httpClient.delete<IPayment>(`api/payments/${paymentId}`);
+  createPayment(payment: IPayment): Observable<IPayment> {
+    return this.httpClient.post<IPayment>('api/payments', payment);
   }
 
   updatePayment(payment: IPayment): Observable<IPayment> {
     return this.httpClient.put<IPayment>(`api/payments/${payment.id}`, payment);
+  }
+
+  deletePayment(paymentId: number): Observable<IPayment> {
+    return this.httpClient.delete<IPayment>(`api/payments/${paymentId}`);
   }
 }
