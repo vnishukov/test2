@@ -21,7 +21,7 @@ describe('PaymentService Test: ', () => {
     httpMock.verify();
   });
 
-  it('Should retrieve payments: API', () => {
+  it('should retrieve payments', () => {
     const testPayments: IPayment[] = [
       {id: 1, name: 'name1', daycost: 10, assign: {10: true}},
       {id: 2, name: 'name2', daycost: 2, assign: {10: true}}
@@ -39,7 +39,7 @@ describe('PaymentService Test: ', () => {
     request.flush(testPayments);
   });
 
-  it('Should create new payment: API', () => {
+  it('should create new payment', () => {
     const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
     service.createPayment(testPayment).subscribe((payment) => {
@@ -53,7 +53,7 @@ describe('PaymentService Test: ', () => {
     request.flush(testPayment);
   });
 
-  it('Should update payment: API', () => {
+  it('should update payment', () => {
     const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
     service.updatePayment(testPayment).subscribe((payment) => {
@@ -67,7 +67,7 @@ describe('PaymentService Test: ', () => {
     request.flush(testPayment);
   });
 
-  it('Should delete payment: API', () => {
+  it('should delete payment', () => {
     const testPayment: IPayment = {id: 1, name: 'name1', daycost: 10, assign: {10: true}};
 
     service.deletePayment(testPayment.id).subscribe((payment) => {
