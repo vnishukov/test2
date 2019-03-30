@@ -33,6 +33,38 @@ describe('FormComponent', () => {
     expect(component.submit).toEqual(jasmine.any(EventEmitter));
   });
 
+  it('should handle Enter key press when form is valid and submit the form', () => {
+    const event = new Event('keyup');
+    Object.defineProperty(event, 'key', {value: 'Enter'});
+    spyOn(component.submit, 'emit');
+    component.paymentName.setValue('Test value');
+    component.paymentDayCost.setValue(22);
+    window.dispatchEvent(event);
+    expect(component.submit.emit).toHaveBeenCalledWith({name: 'Test value', daycost: 22});
+  });
+
+  it('should reset the form on Escape key press', () => {
+    const event = new Event('keyup');
+    Object.defineProperty(event, 'key', {value: 'Escape'});
+    component.paymentName.setValue('Test value');
+    component.paymentDayCost.setValue(22);
+    window.dispatchEvent(event);
+    expect(component.paymentName.value).toEqual(null);
+    expect(component.paymentDayCost.value).toEqual(null);
+  });
+
+  it('should not handle any other key press', () => {
+    const event = new Event('keyup');
+    Object.defineProperty(event, 'key', {value: 'Backspace'});
+    spyOn(component.submit, 'emit');
+    component.paymentName.setValue('Test value');
+    component.paymentDayCost.setValue(22);
+    window.dispatchEvent(event);
+    expect(component.submit.emit).not.toHaveBeenCalled();
+    expect(component.paymentName.value).toEqual('Test value');
+    expect(component.paymentDayCost.value).toEqual(22);
+  });
+
   it('should have FormControl for a `paymentName` form field', () => {
     expect(component.paymentName).toEqual(jasmine.any(AbstractControl));
   });
