@@ -1,23 +1,17 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {InMemPaymentService} from './payments.db';
 
 describe('InMemPaymentService', () => {
   let component: InMemPaymentService;
-  let fixture: ComponentFixture<InMemPaymentService>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [InMemPaymentService]
-    }).compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InMemPaymentService);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new InMemPaymentService();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should initially populate in-memory db with 7 payments', () => {
+    expect(component.createDb().payments.length).toEqual(7);
+  });
 });
