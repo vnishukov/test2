@@ -1,6 +1,6 @@
 import {EventEmitter} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import IPayment from 'src/app/declarations/payment.interface';
+import IPayment from '../../declarations/payment.interface';
 import {GridComponent} from './grid.component';
 
 describe('GridComponent', () => {

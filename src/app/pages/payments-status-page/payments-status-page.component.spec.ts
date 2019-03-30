@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {fakeAsync} from '@angular/core/testing';
 import {Observable, of} from 'rxjs';
-import IPayment from 'src/app/declarations/payment.interface';
+import IPayment from '../../declarations/payment.interface';
 import {PaymentsStatusPageComponent} from './payments-status-page.component';
 
 class PaymentServiceMock {
