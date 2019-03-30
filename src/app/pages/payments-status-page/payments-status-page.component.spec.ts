@@ -119,6 +119,12 @@ describe('PaymentsStatusPageComponent', () => {
     expect(component.nextId).toEqual(8);
   }));
 
+  it('should set lastId to 1 if no payments', fakeAsync(() => {
+    spyOn(paymentService, 'getPayments').and.returnValue(of([]));
+    component.ngOnInit();
+    expect(component.nextId).toEqual(1);
+  }));
+
   it('should returnarray of months', () => {
     expect(component.months.length).toEqual(12);
   });

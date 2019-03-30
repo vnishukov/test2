@@ -55,7 +55,7 @@ describe('FormComponent', () => {
 
   it('should not handle any other key press', () => {
     const event = new Event('keyup');
-    Object.defineProperty(event, 'key', {value: 'Backspace'});
+    Object.defineProperty(event, 'key', {value: 'Shift'});
     spyOn(component.submit, 'emit');
     component.paymentName.setValue('Test value');
     component.paymentDayCost.setValue(22);

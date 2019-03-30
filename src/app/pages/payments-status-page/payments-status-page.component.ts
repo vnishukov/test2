@@ -63,6 +63,10 @@ export class PaymentsStatusPageComponent implements OnInit {
   }
 
   private setLastId(payments: IPayment[]): void {
+    if (!payments.length) {
+      this.nextId = 1;
+      return;
+    }
     const sortedIds = payments.map((payment) => payment.id).sort((one, two) => one - two);
     const highestId = sortedIds[sortedIds.length - 1];
     this.nextId = highestId + 1;
